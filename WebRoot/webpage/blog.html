@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="alternate icon" type="image/png" href="plug-in/AmazeUI/assets/i/favicon.png">
+  <link rel="stylesheet" href="plug-in/AmazeUI/assets/css/amazeui.flat.min.css"/>
+  <style>
+    @media only screen and (min-width: 1200px) {
+      .blog-g-fixed {
+        max-width: 1200px;
+      }
+    }
+
+    @media only screen and (min-width: 641px) {
+      .blog-sidebar {
+        font-size: 1.4rem;
+      }
+    }
+
+    .blog-main {
+      padding: 20px 0;
+    }
+
+    .blog-title {
+      margin: 10px 0 20px 0;
+    }
+
+    .blog-meta a {
+      color: #27ae60;
+    }
+
+    .blog-pagination a {
+      font-size: 1.4rem;
+    }
+
+    .blog-team li {
+      padding: 4px;
+    }
+
+    .blog-team img {
+      margin-bottom: 0;
+    }
+
+    .blog-content img,
+    .blog-team img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .blog-footer {
+      padding: 10px 0;
+      text-align: center;
+    }
+    .am-with-topbar-fixed-top{
+      padding-top: 51px
+    }
+    .foot-lable{
+      font-size: 12px;
+      color: grey;
+      padding-right: 10px;
+    }
+  </style>
+</head>
+<body class="am-with-topbar-fixed-top">
+<div id="app">
+  <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+    <h1 class="am-topbar-brand">
+      <a href="#">ZLNblog</a>
+    </h1>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+            class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+      <ul class="am-nav am-nav-pills am-topbar-nav">
+        <li class="am-active"><a href="#">首页</a></li>
+        <li><a href="#">项目</a></li>
+        <li><a href="#">分类</a></li>
+        <li><a href="#">心情随笔</a></li>
+        <li><a href="#">留言</a></li>
+        <li><a href="#">时间线</a></li>
+
+      </ul>
+
+      <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
+        <div class="am-form-group">
+          <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章">
+        </div>
+        <button type="submit" class="am-btn am-btn-default am-btn-sm">搜索</button>
+      </form>
+
+    </div>
+  </header>
+
+  <div class="am-g am-g-fixed blog-g-fixed">
+    <div class="am-u-md-8">
+
+      <ul class="am-list am-list-static" >
+        <li v-for="blog in blogs">
+          <h3 class="am-article-title blog-title">
+            <a href="#" class="am-text-truncate"v-text="blog.title"></a>
+          </h3>
+          <p v-text="blog.keyWord"></p>
+          <div class="am-g">
+            <div class="am-u-sm-6">
+              <img class="am-radius" alt="20*20" src="plug-in/images/author.svg" width="20" height="20" />
+              <label v-text="blog.authorId" class="foot-lable"></label>
+              <img class="am-radius" alt="20*20" src="plug-in/images/time.svg" width="20" height="20" />
+              <label class="foot-lable" v-text="blog.createDate"></label>
+            </div>
+            <div class="am-u-sm-6" style="text-align: right">
+              <img class="am-radius" alt="20*20" src="plug-in/images/comment.svg" width="20" height="20" />
+              <label class="foot-lable">评论(<label v-text="blog.commentNumber"></label>)</label>
+              <img class="am-radius" alt="20*20" src="plug-in/images/like.svg" width="20" height="20" />
+              <label class="foot-lable">点赞(<label v-text="blog.likeNumber"></label>)</label>
+              <img class="am-radius" alt="20*20" src="plug-in/images/look.svg" width="20" height="20" />
+              <label class="foot-lable">查看(<label v-text="blog.lookNumber"></label>)</label>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+
+      <hr class="am-article-divider blog-hr">
+      <ul class="am-pagination blog-pagination">
+        <li class="am-pagination-prev"><a href="">&laquo; 上一页</a></li>
+        <li class="am-pagination-next"><a href="">下一页 &raquo;</a></li>
+      </ul>
+    </div>
+
+    <div class="am-u-md-4 blog-sidebar">
+      <div class="am-panel-group">
+        <section class="am-panel am-panel-default">
+          <div class="am-panel-hd">关于我</div>
+          <div class="am-panel-bd">
+            <p v-text="aboutMe"></p>
+            <a class="am-btn am-btn-success am-btn-sm" href="#">查看更多 →</a>
+          </div>
+        </section>
+        <section class="am-panel am-panel-default">
+          <div class="am-panel-hd">文章目录</div>
+          <ul class="am-list blog-list">
+            <li v-for="item in items"><a href="#" v-text="item.title"></a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<footer class="blog-footer">
+  <p>blog<br/>
+    <small>© Copyright Jack. by the AmazeUI.</small>
+  </p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="plug-in/jquery/jquery-1.8.0.min.js"></script>
+<!--<![endif]-->
+<script src="plug-in/AmazeUI/assets/js/amazeui.min.js"></script>
+<script src="plug-in/vuejs/vue.js"></script>
+<script>
+  var _self =new Vue({
+      el:"#app",
+      data:{
+          blogs:[],
+          items:[],
+          aboutMe:'博客最初的名称是Weblog，由web和log两个单词组成，按字面意思就为网络日记，后来喜欢新名词的人把这个词的发音故意改了一下，读成we blog，由此，blog这个词被创造出来。中文意思即网志或网络日志，不过，在中国大陆有人往往也将Blog本身和blogger(即博客作者)均音译为"博客"。',
+          author:'小白',
+      },
+      mounted:function () {
+          $.ajax({
+              url:'listController.do?getBlogList',
+              type:'POST',
+              dataType:'json',
+              scriptCharset: 'utf-8'
+          }).then(function (value) {
+              _self.blogs = value
+          },function (reason) {
+              console.info(reason)
+          })
+      }
+  })
+</script>
+
+</body>
+</html>
