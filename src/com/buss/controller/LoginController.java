@@ -3,6 +3,7 @@ package com.buss.controller;
 import com.base.anno.Autowired;
 import com.base.anno.Controller;
 import com.base.anno.RequestMapping;
+import com.base.model.AjaxJson;
 import com.buss.service.BlogListService;
 import com.buss.util.ListToJsonArray;
 
@@ -33,11 +34,21 @@ public class LoginController {
     }
 
     @RequestMapping("/doLogin")
-    public void doLogin(HttpServletRequest request, HttpServletResponse response){
+    public AjaxJson doLogin(HttpServletRequest request, HttpServletResponse response){
+        AjaxJson j = new AjaxJson();
         // 获取存放在session中的验证码
-        String code = (String) request.getSession().getAttribute("code");
-       Map<String,String[]> map= request.getParameterMap();
+        String rightCode = (String) request.getSession().getAttribute("code");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String code = request.getParameter("codecode");
+        if(!code.equalsIgnoreCase(rightCode)){
+            j.setSuccess(false);
+            j.setMsg("验证码错误");
+        }else{
 
+        }
+
+        return j;
     }
 
 
