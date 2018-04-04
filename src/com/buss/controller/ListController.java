@@ -27,7 +27,7 @@ public class ListController {
             e.printStackTrace();
         }
         try {
-            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
             response.getWriter().write(ListToJsonArray.listToArray(list));
         } catch (IOException e) {
             e.printStackTrace();
