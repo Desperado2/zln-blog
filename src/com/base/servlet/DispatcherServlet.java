@@ -58,12 +58,14 @@ public class DispatcherServlet extends HttpServlet {
 		String mName ="";
 		while (enums.hasMoreElements()){
 			mName =enums.nextElement();
+			if(!mName.equals("")){
+				break;
+			}
 		}
 		String reuestUrl = request.getRequestURI();
 		String pName = request.getContextPath();
 		String realUrl = reuestUrl.replaceAll(pName, "");
 		String cName = (realUrl.split("/")[1]);
-		String sdsv ="/"+cName.split("\\.")[0]+"/"+mName;
 		Method method =(Method) methodMap.get("/"+cName.split("\\.")[0]+"/"+mName);
 		Object controller =  classMap.get(cName.split("\\.")[0]);
 		try {
